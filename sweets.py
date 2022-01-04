@@ -12,4 +12,4 @@ class Sweet(Product):
         print(self.__str__())
 
     def __str__(self):
-        return "Name: {} \t Weight: {} Price {} - {}".format(self.name, self.weight, self.price, self.final_price)
+        return "{}\t{}\t{}\t{}".format(self.name, self.weight, self.price, self.final_price)

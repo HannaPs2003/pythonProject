@@ -21,8 +21,8 @@ def commands(comd):
     global percent
     if comd == 'info':
         info()
-    if comd == 'addProductBook':
-        addProductBook()
+    # if comd == 'addProductBook':
+    #     addProductBook()
     if comd == 'addProductSweet':
         addProductSweet()
     if comd == 'printProducts':
@@ -32,6 +32,12 @@ def commands(comd):
         #     print('------------------')
             # db.readSweet(percent)
         db_engine.read_sweets()
+    if comd == 'printOrders':
+        db_engine.read_orders()
+    if comd == 'delOrders':
+        db_engine.delete_orders()
+    if comd == 'addOrder':
+        db_engine.add_order()
     # if comd == 'changePercent':
     #     global percent
     #     percent = changePercent()
@@ -47,11 +53,17 @@ def commands(comd):
 
 def info():
     print('info - for watch information of commands')
-    print('addProductBook - for add book on product array')
-    print('addProductSweet - for add sweet on product array')
+    # print('addProductBook - for add book on product')
+    print('addProductSweet - for add sweet on product')
     print('printProducts - for print all products in the list')
+    print('delProducts - for clear DB PRODUCTS and ORDERS')
+    print('----------------------------------------------------')
+    print('addOrder - for add order on orders')
+    print('printOrders - for print all orders in the list')
+    print('delOrders - for clear DB ORDERS')
+
     # print('changePercent - for change percent of price')
-    print('delProducts - for clear DB PRODUCTS(books)')
+
 
 
 def addProductBook():
@@ -82,8 +94,8 @@ def addProductSweet():
     db_engine.add_sweet(product_sweet)
 
 # addProductBook()
-addProductSweet()
-print('------------')
+# addProductSweet()
+# print('------------')
 ##############################################
 # myclass = Iterator(len(products), products)
 # productI = iter(myclass)

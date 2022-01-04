@@ -60,7 +60,7 @@ class EngineDb:
         r = self.conn.execute(new_sweet)
         print('------------')
         # self.read_sweets()
-        self.add_order()
+        # self.add_order()
 
     def read_sweets(self):
         all_sweets = select(self.sweet)
@@ -71,8 +71,10 @@ class EngineDb:
             print("{:10} \t {:10} \t {:10} \t {:10}".format(name, weight, price, full_price))
 
     def delete_sweets(self):
+        self.delete_orders()
         del_sweets = delete(self.sweet)
         self.conn.execute(del_sweets)
+        print('sweet products deleted')
 
 
     def add_order(self):
@@ -89,7 +91,7 @@ class EngineDb:
             product = Sweet(name_s, weight, price, full_price)
             print("{:10} \t {:10} \t {:10} \t {:10}".format(name_s, weight, price, full_price))
         order = Order(name, sur_name, telephone, age, product)
-        order.printOrder()
+        # order.printOrder()
         query = select([self.orders])
         r = self.conn.execute(query)
         inc = r.rowcount + 1
@@ -102,16 +104,23 @@ class EngineDb:
             product = id_s,
         )
         r = self.conn.execute(new_order)
-        self.read_orders()
+        # self.read_orders()
 
     def read_orders(self):
         r = self.conn.execute(select(self.orders))
         for line in r:
             id_o, name_o, sur_name_o, telephone_o, date_time_o, product_o = line
-            print('{} \t{} \t{}\t{}\t{}'.format(name_o, sur_name_o, telephone_o, date_time_o, product_o))
+            s = self.conn.execute(select([self.sweet]).where(self.sweet.c.id == int(product_o)))
+            for row in s:
+                id_s, name_s, weight, price, full_price = row
+                # print("{:10} \t {:10} \t {:10} \t {:10}".format(name_s, weight, price, full_price))
+            print('{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}'.format(name_o, sur_name_o, telephone_o, date_time_o, name_s, weight, price, full_price))
 
 
 
+    def delete_orders(self):
+        self.conn.execute(delete(self.orders))
+        print('orders deleted')
 
 
         # some_sweets = select([sweet.c.name, sweet.c.id]).where(
