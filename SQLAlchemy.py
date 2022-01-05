@@ -2,6 +2,7 @@ import orders
 
 from sqlalchemy import create_engine, MetaData, Table, Integer, Float,\
     String, Column, DateTime, ForeignKey, ForeignKeyConstraint
+from sqlalchemy.orm import mapper
 from datetime import datetime
 from sqlalchemy import select, delete
 from sweets import Sweet
@@ -31,7 +32,6 @@ class EngineDb:
                       Column('price', Float(), nullable=False),
                       Column('percent', Float(), nullable=False)
         )
-        # todo auto_increment
         self.orders = Table('orders', metadata,
                        Column('id', Integer(), primary_key=True, ),
                        Column('name', String(), nullable=False),
@@ -40,9 +40,27 @@ class EngineDb:
                        Column('date_time', DateTime(), default=datetime.now),
                        Column('product', Integer()),
                        ForeignKeyConstraint(['product'], ['sweet.id']))
-        # print(engine)
+
+
         metadata.create_all(engine)
         self.conn = engine.connect()
+        # metadata.drop_all(engine)
+        #
+        # todo class Post(object):
+        #     pass
+        #
+        # mapper(Post, post)
+
+
+        # class Sweet(object):
+        #     pass
+        #
+        # mapper(Sweet, self.sweet)
+
+
+
+
+
 
     def add_sweet(self, sweet: Sweet):
         all_sweets = select(self.sweet)

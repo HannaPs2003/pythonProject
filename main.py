@@ -4,7 +4,7 @@ from orders import Order, printAll
 from sweets import Sweet
 from book import Book
 from SQLAlchemy import EngineDb
-
+# from alchemyORM import DB_ORM
 
 
 def changePercent():
@@ -33,14 +33,12 @@ def commands(comd):
         db_engine.delete_orders()
     if comd == 'addOrder':
         db_engine.add_order()
-    # if comd == 'changePercent':
-    #     global percent
-    #     percent = changePercent()
+    if comd == 'changePercent':
+        global percent
+        percent = changePercent()
     if comd == 'delProducts':
         db_engine.delete_sweets()
 
-
-# todo менеджеры контекста Python
 
 
 def info():
@@ -80,10 +78,10 @@ def addProductSweet():
     # product.print()
 
     products.append(product_sweet)
-    db_engine.add_sweet(product_sweet)
+    # db_engine.add_sweet(product_sweet)
 
 
-
+# dbORM = DB_ORM()
 
 
 while True:
