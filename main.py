@@ -3,9 +3,8 @@ from products import Product
 from orders import Order, printAll
 from sweets import Sweet
 from book import Book
-from db import DB
 from SQLAlchemy import EngineDb
-from iterator import Iterator
+
 
 
 def changePercent():
@@ -14,8 +13,8 @@ def changePercent():
 db_engine = EngineDb()
 products = []
 percent = changePercent()
-db = DB()
-# db.createTableSweets()
+
+
 
 def commands(comd):
     global percent
@@ -26,11 +25,7 @@ def commands(comd):
     if comd == 'addProductSweet':
         addProductSweet()
     if comd == 'printProducts':
-        # with DB() as cursor:
-        #     print('\n------------------')
-        #     db.readBook(percent)
-        #     print('------------------')
-            # db.readSweet(percent)
+
         db_engine.read_sweets()
     if comd == 'printOrders':
         db_engine.read_orders()
@@ -42,9 +37,6 @@ def commands(comd):
     #     global percent
     #     percent = changePercent()
     if comd == 'delProducts':
-        # with DB() as cursor:
-            # db.deleteBook()
-            # db.deleteSweet()
         db_engine.delete_sweets()
 
 
@@ -76,8 +68,7 @@ def addProductBook():
     # product.print()
 
     products.append(product_book)
-    with DB() as cursor:
-        db.createBook(product_book)
+
 
 
 def addProductSweet():
@@ -89,32 +80,9 @@ def addProductSweet():
     # product.print()
 
     products.append(product_sweet)
-    # with DB() as cursor:
-    #     db.createSweet(product_sweet)
     db_engine.add_sweet(product_sweet)
 
-# addProductBook()
-# addProductSweet()
-# print('------------')
-##############################################
-# myclass = Iterator(len(products), products)
-# productI = iter(myclass)
-##############################################
-# print(next(productI))
 
-# for x in productI:
-#     print(x)
-
-
-# print('Hello. we start')
-# a = Order('anna', 'pstyga', '+7589890809578', 18, products[1])
-# a.printOrder()
-# b = Order('Hanna', 'Ps', '+3456789009876', 15, products[1])
-# b.printOrder()
-# c = Order('Annatolia', '-', '+1234567890987', 20, products[1])
-# c.printOrder()
-# print('-------------------')
-# printAll()
 
 
 
