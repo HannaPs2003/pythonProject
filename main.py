@@ -29,7 +29,8 @@ def commands(comd):
     if comd == 'printProducts':
         dbORM.read_sweet()
 #         db_engine.read_sweets()
-#     if comd == 'printOrders':
+    if comd == 'printOrders':
+        dbORM.read_order()
 #         db_engine.read_orders()
 #     if comd == 'delOrders':
 #         db_engine.delete_orders()
@@ -50,10 +51,10 @@ def info():
 #     # print('addProductBook - for add book on product')
     print('addProductSweet - for add sweet on product')
 #     print('printProducts - for print all products in the list')
-#     print('delProducts - for clear DB PRODUCTS and ORDERS')
+    print('delProducts - for clear DB PRODUCTS and ORDERS')
 #     print('----------------------------------------------------')
-#     print('addOrder - for add order on orders')
-#     print('printOrders - for print all orders in the list')
+    print('addOrder - for add order on orders')
+    print('printOrders - for print all orders in the list')
 #     print('delOrders - for clear DB ORDERS')
 #
 #     # print('changePercent - for change percent of price')

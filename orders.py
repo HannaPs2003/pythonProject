@@ -35,12 +35,12 @@ Base = declarative_base()
 # todo ForeignKey('sweet.id')
 class Order(Base):
     __tablename__ = 'order'
-    id = Column(Integer(), primary_key=True)
+    id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
-    surname = Column(String(), nullable=True)
+    surname = Column(String, nullable=True)
     telephone = Column(String(13), nullable=False)
-    datetime = Column(DateTime(), default=datetime.now)
-    product = Column(Integer(), ForeignKey('sweet.id'))
+    datetime = Column(DateTime, default=datetime.now)
+    product = Column(Integer, ForeignKey('sweet.id'))
 
     def __repr__(self):
         return '<Order(name=%s surname=%s telephone=%s)>' % (self.name, self.surname, self.telephone)

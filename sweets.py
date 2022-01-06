@@ -25,11 +25,11 @@ Base = declarative_base()
 
 class Sweet(Base):
     __tablename__ = 'sweet'
-    id = Column(Integer(),  primary_key=True)
-    name = Column(String(), nullable=False)
-    weight = Column(Float(), nullable=False)
-    price = Column(Float(), nullable=False)
-    percent = Column(Float(), nullable=False)
+    id = Column(Integer,  primary_key=True)
+    name = Column(String, nullable=False)
+    weight = Column(Float, nullable=False)
+    price = Column(Float, nullable=False)
+    percent = Column(Float, nullable=False)
     # orders = relationship("Order")    #, backref = "order"
 
     def __repr__(self):
