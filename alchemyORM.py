@@ -1,74 +1,67 @@
-# from sqlalchemy import create_engine, MetaData, Table, Integer, Float,\
-#     String, Column, DateTime, ForeignKey, ForeignKeyConstraint
-#
-# from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy.orm import  mapper, Session, sessionmaker
-#
-# from datetime import datetime
-#
-#
-# # class Sweet(object):
-# #     pass
-# class Book(object):
-#     pass
-# class Order(object):
-#     pass
-#
-#
-# class DB_ORM:
-#     def __init__(self):
-#         engine = create_engine("postgresql+psycopg2://postgres:root@localhost/postgres_db")
-#         self.session = Session(bind=engine)
-#         Base = declarative_base()
-#         metadata = MetaData()
-#
-#
-#         # self.sweet = Table('sweet', metadata,
-#         #                       Column('id', Integer(), primary_key=True),
-#         #                       Column('name', String(), nullable=False),
-#         #                       Column('weight', Float(), nullable=False),
-#         #                       Column('price', Float(), nullable=False),
-#         #                       Column('percent', Float(), nullable=False)
-#         #                    )
-#
-#         class Sweet(Base):
-#             __tablename__='sweet'
-#             id = Column(Integer(), primary_key=True)
-#             name = Column(String(), nullable=False)
-#             weight = Column(Float(), nullable=False)
-#             price = Column(Float(), nullable=False)
-#             percent = Column(Float(), nullable=False)
-#
-#
-#         self.book = Table('book', metadata,
-#                     Column('ID', Integer(), primary_key=True),
-#                     Column('author', String(100), nullable=False),
-#                     Column('name', String(100), nullable=False),
-#                     Column('Price', Float, nullable=False),
-#                     Column('percent', Float, nullable=False)
-#                 )
-#
-#
-#         self.order = Table('orders', metadata,
-#                                Column('id', Integer(), primary_key=True, ),
-#                                Column('name', String(), nullable=False),
-#                                Column('surname', String(), nullable=False),
-#                                Column('telephone', String()),
-#                                Column('date_time', DateTime(), default=datetime.now),
-#                                Column('product', Integer()),
-#                                ForeignKeyConstraint(['product'], ['sweet.id']))
-#         mapper(Sweet, self.sweet)
-#         mapper(Book, self.book)
-#         mapper(Order, self.order)
-#
-#         Base.metadata.create_all(engine)
-#         print('ok')
-#
-#     def create_sweet(self):
-#         s1 = Sweet(
-#             id = 1,
-#             name = 'tiktak',
-#             weight = 100,
-#             price = 100,
-#             percent = 1.2,
-#         )
+from sqlalchemy import create_engine, MetaData, Table, Integer, Float,\
+    String, Column, DateTime, ForeignKey, ForeignKeyConstraint
+
+from sqlalchemy.ext.declarative import declarative_base
+
+from sweets import Sweet
+from book import Book
+from orders import  Order
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+
+Base = declarative_base()
+
+class DB_ORM:
+    def __init__(self):
+        self.engine = create_engine("postgresql+psycopg2://postgres:root@localhost/postgres_db")
+        self.session = Session(bind=self.engine)
+        Base.metadata.create_all(self.engine)
+
+    def add_db(self, new_line):
+        self.session.add(new_line)
+        print(self.session.new)
+        self.session.commit()
+
+    def create_sweet(self):
+        name = input('VV name of sweet>>')
+        weight = float(input('VV weight sweet>>'))
+        price = float(input('VV sweet price>>'))
+        new_sweet = Sweet(
+            name=name,
+            weight=weight,
+            price=price,
+            percent = 1.2,
+        )
+        self.add_db(new_sweet)
+
+    def read_sweet(self):
+        print(self.session.query(Sweet).all())
+
+    def delete_sweet(self):
+        self.session.query(Sweet).delete()
+        print('sweets deleted')
+
+    def create_order(self):
+        name = input('VV name of order>>')
+        sur_name = input('VV surname of order>>')
+        telephone = input('VV telephone of order>>')
+        sweet_name = input('VV sweet name>>')
+        new_order = Order(
+            name=name,
+            surname=sur_name,
+            telephone=telephone,
+            product=sweet_name,
+        )
+        self.add_db(new_order)
+
+    # def create_book(self):
+    #     author = input('VV author>>')
+    #     book = input('VV book name>>')
+    #     price = float(input('VV book price>>'))
+    #     new_book = Book(
+    #         author=author,
+    #         name=book,
+    #         price=price,
+    #         percent=1.2,
+    #     )
+    #     self.add_db(new_book)

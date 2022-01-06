@@ -7,7 +7,7 @@ from datetime import datetime
 from sqlalchemy import select, delete
 from sweets import Sweet
 from orders import Order
-from products import Product
+
 
 metadata = MetaData()
 
@@ -44,28 +44,16 @@ class EngineDb:
 
         metadata.create_all(engine)
         self.conn = engine.connect()
-        # metadata.drop_all(engine)
-        #
-        # todo class Post(object):
-        #     pass
-        #
-        # mapper(Post, post)
 
-
-        # class Sweet(object):
-        #     pass
-        #
-        # mapper(Sweet, self.sweet)
-
-
-
-
-
-
-    def add_sweet(self, sweet: Sweet):
+    def add_sweet(self, sweet):
         all_sweets = select(self.sweet)
         r = self.conn.execute(all_sweets)
         inc = r.rowcount + 1
+        # name = input('VV name of sweet>>')
+        # weight = float(input('VV weight sweet>>'))
+        # price = float(input('VV sweet price>>'))
+
+        # sweet = Sweet(id=inc, name=name, weihgt=weight, price=price, percent=persent)
 
         new_sweet = self.sweet.insert().values(
             id=inc,
@@ -76,6 +64,7 @@ class EngineDb:
         )
         print(new_sweet.compile().params)
         r = self.conn.execute(new_sweet)
+
         print('------------')
         # self.read_sweets()
         # self.add_order()
